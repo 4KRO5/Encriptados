@@ -1,91 +1,89 @@
 # ///////////////////////////////////////// Cifrado Cesar /////////////////////////////////////////
-def cifrar_cesar(palabra, pos):
+def cifrado_cesar(palabra, pos, cifrar = True):
     pos %= 26
     resultado = ""
 
     for char in palabra.upper():
         if char.isalpha() and char != 'Ñ':
-            resultado += chr((ord(char) - 65 + pos) % 26 + 65)
-        else:
-            resultado += char
-
-    return resultado
-
-def descifrar_cesar(palabra, pos):
-    pos %= 26
-    resultado = ""
-
-    for char in palabra.upper():
-        if char.isalpha() and char != 'Ñ':
-            resultado += chr((ord(char) - 65 - pos) % 26 + 65)
+            if cifrar:
+                resultado += chr((ord(char) - 65 + pos) % 26 + 65)
+            else:
+                resultado += chr((ord(char) - 65 - pos) % 26 + 65)
         else:
             resultado += char
 
     return resultado
 
 # ///////////////////////////////////////// Input Cifrado Cesar /////////////////////////////////////////
-def cifrado_Cesar():
+def método_cesar(cifrar = True):
     while True:
-        palabra_original = input("Ingrese la palabra a cifrar: ")
-        if validar_input(palabra_original):
+        input_word = input(f"› Ingrese la palabra a {'cifrar' if cifrar else 'descifrar'}: ")
+        if validar_input_excepción(input_word):
             break
 
     while True:
-        posición_cifrado = int(input("Ingrese la posición de cifrado: "))
-        if validar_posición(posición_cifrado):
+        posición = int(input(f"› Ingrese la posición de {'cifrado' if cifrar else 'descifrado'}: "))
+        if validar_posición(posición):
             break
 
-    palabra_cifrada = cifrar_cesar(palabra_original, posición_cifrado)
+    palabra_resultado = cifrado_cesar(input_word, posición, cifrar = cifrar)
     
-    print("\n============= Resultado ===============\n" +
-         f"Palabra Original: {palabra_original}\n" +
-         f"Palabra Cifrada: {palabra_cifrada}")
+    print("\n========================== Resultado ==========================\n" +
+          f"Palabra {'Original' if cifrar else 'Cifrada'}: {input_word}\n" +
+          f"Palabra {'Cifrada' if cifrar else 'Descifrada'}: {palabra_resultado}")
 
-def descifrado_Cesar():
-    while True:
-        palabra_original = input("Ingrese la palabra a descifrar: ")
-        if validar_input_excepción(palabra_original):
-            break
-
-    while True:
-        posición_descifrado = int(input("Ingrese la posición de descifrado: "))
-        if validar_posición(posición_descifrado):
-            break
-
-    palabra_descifrada = descifrar_cesar(palabra_original, posición_descifrado)
-    
-    print("\n============= Resultado ===============\n" +
-         f"Palabra Original: {palabra_original}\n" +
-         f"Palabra Cifrada: {palabra_descifrada}")
 
 # ///////////////////////////////////////// Validaciones /////////////////////////////////////////
+def validar_input(palabra):
+    if not all(c.isalpha() or c.isspace() for c in palabra):
+        print("╔══════════════════════════════════════════════╗\n" +
+              "║ Error: La palabra debe contener solo letras. ║\n" +
+              "║ Por favor, ingrese una palabra válida.       ║\n" +
+              "╚══════════════════════════════════════════════╝")
+        return False
+    return True
+
 def validar_input_excepción(palabra):
     if not all(c.isalpha() or c.isspace() for c in palabra) or 'Ñ' in palabra.upper():
-        print("Error: La palabra debe contener solo letras y no debe incluir la letra 'Ñ'.\n" +
-              "Por favor, ingrese una palabra válida.\n" +
-              "---------------------------------------")
+        print("╔═════════════════════════════════════════════════════════════════════════════╗\n" + 
+              "║ Error: La palabra debe contener solo letras y no debe incluir la letra 'Ñ'. ║\n" +
+              "║ Por favor, ingrese una palabra válida.                                      ║\n" +
+              "╚═════════════════════════════════════════════════════════════════════════════╝")
         return False
     return True
 
-def validar_input(clave):
-    if not all(c.isalpha() or c.isspace() for c in clave):
-        print("Error: La clave debe contener solo letras. Por favor, ingrese una clave válida.\n" +
-              "---------------------------------------")
-        return False
-    return True
-
+# ///////////////////////////////////////// Corregir /////////////////////////////////////////
+# Al ingresar una palabra el programa se detiene por un error
 def validar_posición(posición):
-    if not isinstance(posición, int) or posición <= 0:
-        print("Error: La posición debe ser un número entero positivo.\n" +
-              "Por favor, ingrese una posición válida.\n" +
-              "---------------------------------------")
+    if not str(posición).isdigit() or int(posición) <= 0:
+        print("╔═════════════════════════════════════════════════════════╗\n" + 
+              "║ Error: La posición debe ser un valor numérico positivo. ║\n" +
+              "║ Por favor, ingrese una posición válida.                 ║\n" +
+              "╚═════════════════════════════════════════════════════════╝")
         return False
     return True
+
+# def validar_posición(posición):
+#     try:
+#         posición = int(posición)
+#         if posición <= 0:
+#             print("╔═════════════════════════════════════════════════════════╗\n" + 
+#                   "║ Error: La posición debe ser un valor numérico positivo. ║\n" +
+#                   "║ Por favor, ingrese una posición válida.                 ║\n" +
+#                   "╚═════════════════════════════════════════════════════════╝")
+#             return False
+#         return True
+#     except ValueError:
+#         print("╔═════════════════════════════════════════════════════════╗\n" + 
+#               "║ Error: La posición debe ser un valor numérico positivo. ║\n" +
+#               "║ Por favor, ingrese una posición válida.                 ║\n" +
+#               "╚═════════════════════════════════════════════════════════╝")
+#         return False
 
 # ///////////////////////////////////////// Menú /////////////////////////////////////////
 opciones = {
-    "1": cifrado_Cesar,
-    "2": descifrado_Cesar,
+    "1": lambda: método_cesar(cifrar = True),
+    "2": lambda: método_cesar(cifrar = False),
     # "3": cifrado_Bifido,
     # "4": descifrado_Bifido,
     # "5": cifrado_Vigenere,
@@ -103,7 +101,7 @@ while True:
           "║ 0.- Salir                                      ║\n" +
           "╚════════════════════════════════════════════════╝")
 
-    opción = input("Ingrese el número de la opción: ")
+    opción = input("› Ingrese el número de la opción: ")
 
     if opción == "0":
         break

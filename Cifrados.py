@@ -27,7 +27,7 @@ def descifrar_cesar(palabra, pos):
 def cifrado_Cesar():
     while True:
         palabra_original = input("Ingrese la palabra a cifrar: ")
-        if validar_clave(palabra_original):
+        if validar_input(palabra_original):
             break
 
     while True:
@@ -44,7 +44,7 @@ def cifrado_Cesar():
 def descifrado_Cesar():
     while True:
         palabra_original = input("Ingrese la palabra a descifrar: ")
-        if validar_clave_excepción(palabra_original):
+        if validar_input_excepción(palabra_original):
             break
 
     while True:
@@ -68,9 +68,8 @@ def validar_input_excepción(palabra):
     return True
 
 def validar_input(clave):
-    if not all(c.isalpha() or c.isspace() for c in palabra) in palabra.upper():
+    if not all(c.isalpha() or c.isspace() for c in clave):
         print("Error: La clave debe contener solo letras. Por favor, ingrese una clave válida.\n" +
-              "Por favor, ingrese una clave válida.\n" +
               "---------------------------------------")
         return False
     return True

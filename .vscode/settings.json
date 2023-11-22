@@ -1,8 +1,0 @@
-{
-    "cSpell.words": [
-        "Bifido",
-        "vigenere"
-    ],
-    "python.analysis.typeCheckingMode": "basic",
-    "python.analysis.autoImportCompletions": true
-}

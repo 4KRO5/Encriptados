@@ -5,12 +5,11 @@ def cesar_encrypted(word, position, cryptography):
     position %= 26
     result = ""
 
-    for char in word.upper():
+    for char in word:
         if char.isalpha() and char != 'Ñ':
-            if cryptography:
-                result += chr((ord(char) - 65 + position) % 26 + 65)
-            else:
-                result += chr((ord(char) - 65 - position) % 26 + 65)
+            base = ord('A') if char.isupper() else ord('a')
+            shift = position if cryptography else - position
+            result += chr((ord(char) - base + shift) % 26 + base)
         else:
             result += char
     return result
@@ -27,8 +26,8 @@ def cesar_encrypted_input(cryptography):
         if validate_position(position):
             break
 
-    word_result = cesar_encrypted(input_word, position, cryptography = cryptography)
-    
+    word_result = cesar_encrypted(input_word, position, cryptography=cryptography)
+
     print("\n════════════════════ Resultado ═══════════════════\n" +
           f"Palabra {'Original' if cryptography else 'Cifrada'}: {input_word}\n" +
           f"Palabra {'Cifrada' if cryptography else 'Descifrada'}: {word_result}")

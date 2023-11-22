@@ -1,62 +1,78 @@
-# ///////////////////////////////////////// Input Cifrado Vigenere /////////////////////////////////////////
-# def cifrado_Vigenere():
-#     considerar_n = input("¿Desea considerar la letra 'Ñ' en el universo? (Sí: 1, No: 0): ")
+from Validations import validate_input_universe
+
+# ///////////////////////////////////////// Vigenere Encrypted Input /////////////////////////////////////////
+def vigenere_encrypted(word, key, universe, cryptography):
+    result = ""
+
+    if cryptography:
+        for i in range(len(word)):
+            char = word[i].upper()
+            if char in universe:
+                plaintext_char_index = universe.index(char)
+                key_char_index = universe.index(key[i % len(key)])
+                encrypted_char_index = (plaintext_char_index + key_char_index) % len(universe)
+                result += universe[encrypted_char_index]
+            else:
+                result += char
+    else:
+        for i in range(len(word)):
+            char = word[i].upper()
+            if char in universe:
+                word = universe.index(char)
+                key_char_index = universe.index(key[i % len(key)])
+                decrypted_char_index = (word - key_char_index) % len(universe)
+                result += universe[decrypted_char_index]
+            else:
+                result += char
+    return result
+
+# ///////////////////////////////////////// Vigenere Encrypted Input /////////////////////////////////////////
+def vigenere_encrypted_input(universe, cryptography):
+    if universe == "":
+        universe = input("› Ingrese el alfabeto del universo: ")
+
+    while True:
+        input_word = input("› Ingrese la palabra a cifrar: ")
+        if validate_input_universe(input_word, universe):  # Asegúrate de tener 'universe' definido
+            break
+
+    while True:
+        key = input("› Ingrese la clave: ")
+        if validate_input_universe(key, universe):  # Asegúrate de tener 'universe' definido
+            break
+
+    word_result = vigenere_encrypted(input_word, key, universe, cryptography)
     
-#     while True:
-#         palabra_original = input("Ingrese la palabra a cifrar: ")
-#         if validar_clave_excepción(palabra_original):
-#             break
+    print("\n============= Resultado ===============\n" +
+          f"Palabra Original: {input_word.capitalize()}\n" +
+          f"Palabra Cifrada: {word_result.capitalize()}")
+
+# ///////////////////////////////////////// Vigenere Encryption Menu /////////////////////////////////////////
+def vigenere_encrypted_menu(cryptography):
+    universe_AE = "ABCDE"
+    universe_AZ = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    user_defined_universe = ""
+
+    options = {
+        "1": lambda: vigenere_encrypted_input(universe_AE, cryptography),
+        "2": lambda: vigenere_encrypted_input(universe_AZ, cryptography),
+        "3": lambda: vigenere_encrypted_input(user_defined_universe, cryptography)
+    }
+
+    while True:
+        print("╔════════════════════════════════════════════════╗\n" +
+              "║            Seleccione una operación            ║\n" +
+              "╠═══════════════════════╦════════════════════════╣\n" +
+              "║ 1.- Universo (A-E)    ║ 2.- Universo (A-Z)     ║\n" +
+              "║ 3.- Definir Universo  ║                        ║\n" +
+              "╚═══════════════════════╩════════════════════════╝")
         
-#     while True:
-#         clave_vigenere = input("Ingrese la clave Vigenere: ")
-#         if validar_clave(clave_vigenere):
-#             break
-    
-#     if considerar_n == "1":
-#         palabra_cifrada_vigenere = cifrar_vigenere(palabra_original, clave_vigenere, considerar_n=True)
-#     else:
-#         palabra_cifrada_vigenere = cifrar_vigenere(palabra_original, clave_vigenere, considerar_n=False)
+        option = input("› Ingrese el número de la opción: ")
 
-#     print("\n============= Resultado ===============\n" +
-#          f"Palabra Original: {palabra_original}\n" +
-#          f"Palabra Descifrada: {palabra_cifrada_vigenere}")
+        if option == "0":
+            break
 
-# def descifrado_Vigenere():
-#     palabra_original = input("Ingrese la palabra a descifrar: ")
-#     clave_vigenere = input("Ingrese la clave Vigenere: ")
-#     considerar_n = input("¿Desea considerar la letra 'Ñ' en el universo? (Sí: 1, No: 0): ")
-
-#     if considerar_n == "1":
-#         palabra_descifrada_vigenere = descifrar_vigenere(palabra_original, clave_vigenere, considerar_n=True)
-#     else:
-#         palabra_descifrada_vigenere = descifrar_vigenere(palabra_original, clave_vigenere, considerar_n=False)
-
-#     print("\n============= Resultado ===============\n" +
-#          f"Palabra Original: {palabra_original}\n" +
-#          f"Palabra Descifrada: {palabra_descifrada_vigenere}\n")
-
-# ///////////////////////////////////////// Menu /////////////////////////////////////////
-# def vigenere_encrypted_input():
-#     options = {
-#         # "1": lambda: universo_A_to_E(cifrar = True),
-#         # "2": lambda: Universo_A_to_Z(cifrar = False),
-#         # "3": lambda: user_defined_universe(cifrar = True),
-#     }
-
-#     while True:
-#         print("╔════════════════════════════════════════════════╗\n" +
-#               "║            Seleccione una operación            ║\n" +
-#               "╠═══════════════════════╦════════════════════════╣\n" +
-#               "║ 1.- Universo (A-E)    ║ 2.- Universo (A-Z)     ║\n" +
-#               "║ 3.- Definir Universo  ║                        ║\n" +
-#               "╚═══════════════════════╩════════════════════════╝")
-        
-#         option = input("› Ingrese el número de la opción: ")
-
-#         if option == "0":
-#             break
-
-#         if option in options:
-#             options[option]()
-#         else:
-#             print("Opción no válida. Inténtelo de nuevo.")
+        if option in options:
+            options[option]()
+        else:
+            print("Opción no válida. Inténtelo de nuevo.")

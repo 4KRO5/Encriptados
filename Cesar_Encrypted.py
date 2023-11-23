@@ -2,7 +2,7 @@ from Validations import validate_input_exception, validate_position
 
 # ///////////////////////////////////////// Cesar Encrypted /////////////////////////////////////////
 def cesar_encrypted(word, position, cryptography):
-    position %= 26
+    position = int(position) % 26  
     result = ""
 
     for char in word:
@@ -22,11 +22,11 @@ def cesar_encrypted_input(cryptography):
             break
 
     while True:
-        position = int(input(f"› Ingrese la posición de {'cifrado' if cryptography else 'descifrado'}: "))
+        position = input(f"› Ingrese la posición de {'cifrado' if cryptography else 'descifrado'}: ")
         if validate_position(position):
             break
 
-    word_result = cesar_encrypted(input_word, position, cryptography=cryptography)
+    word_result = cesar_encrypted(input_word, position, cryptography)
 
     print("\n════════════════════ Resultado ═══════════════════\n" +
           f"Palabra {'Original' if cryptography else 'Cifrada'}: {input_word}\n" +

@@ -1,9 +1,15 @@
-def validate_input(word):
+def validate_input(word, isUniverse):
     if not all(c.isalpha() or c.isspace() for c in word.upper()):
-        print("╔══════════════════════════════════════════════╗\n" +
-              "║ Error: La palabra debe contener solo letras. ║\n" +
-              "║ Por favor, ingrese una palabra válida.       ║\n" +
-              "╚══════════════════════════════════════════════╝")
+        if isUniverse:
+            print("╔══════════════════════════════════════════════╗\n" +
+                  "║ Error: La palabra debe contener solo letras. ║\n" +
+                  "║ Por favor, ingrese una palabra válida.       ║\n" +
+                  "╚══════════════════════════════════════════════╝")
+        else:
+            print("╔═══════════════════════════════════════════════╗\n" +
+                  "║ Error: El universo debe contener solo letras. ║\n" +
+                  "║ Por favor, ingrese una palabra válida.        ║\n" +
+                  "╚═══════════════════════════════════════════════╝")
         return False
     return True
 
@@ -25,9 +31,8 @@ def validate_input_universe(word, universe):
         return False
     return True
 
-# Si se ingresa un carácter no numérico el programa se detiene y no muestra el msj de error
 def validate_position(position):
-    if not str(position).isdigit() or int(position) < 0:
+    if not str(position).isdigit() or (str(position).isdigit() and int(position) < 0):
         print("╔════════════════════════════════════════════════════════════════════════╗\n" + 
               "║ Error: La posición debe ser un valor numérico positivo diferente de 0. ║\n" +
               "║ Por favor, ingrese una posición válida.                                ║\n" +

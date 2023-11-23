@@ -27,8 +27,8 @@ while True:
 
     if option in options:
         options[option]()
-        
-    if option == "0":
-        break
+        if option == "0":
+            break
+
     else:
         print("Opción no válida. Inténtelo de nuevo.")

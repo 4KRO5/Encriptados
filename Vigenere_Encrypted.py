@@ -1,30 +1,25 @@
 from Validations import validate_input_universe
 
-# ///////////////////////////////////////// Vigenere Encrypted Input /////////////////////////////////////////
+# ///////////////////////////////////////// Vigenere Encrypted /////////////////////////////////////////
 def vigenere_encrypted(word, key, universe, cryptography):
-    result = ""
+    result = []
+    key = key.upper()
 
-    if cryptography:
-        for i in range(len(word)):
-            char = word[i].upper()
-            if char in universe:
-                plaintext_char_index = universe.index(char)
-                key_char_index = universe.index(key[i % len(key)])
-                encrypted_char_index = (plaintext_char_index + key_char_index) % len(universe)
-                result += universe[encrypted_char_index]
+    for i, char in enumerate(word):
+        if char.upper() in universe:
+            char_index = universe.index(char.upper())
+            key_index = universe.index(key[i % len(key)])
+            if cryptography:
+                encrypted_index = (char_index + key_index) % len(universe)
             else:
-                result += char
-    else:
-        for i in range(len(word)):
-            char = word[i].upper()
-            if char in universe:
-                word = universe.index(char)
-                key_char_index = universe.index(key[i % len(key)])
-                decrypted_char_index = (word - key_char_index) % len(universe)
-                result += universe[decrypted_char_index]
-            else:
-                result += char
-    return result
+                encrypted_index = (char_index - key_index) % len(universe)
+
+            encrypted_char = universe[encrypted_index]
+            result.append(encrypted_char.lower() if char.islower() else encrypted_char)
+        else:
+            result.append(char)
+
+    return ''.join(result)
 
 # ///////////////////////////////////////// Vigenere Encrypted Input /////////////////////////////////////////
 def vigenere_encrypted_input(universe, cryptography):
@@ -44,8 +39,8 @@ def vigenere_encrypted_input(universe, cryptography):
     word_result = vigenere_encrypted(input_word, key, universe, cryptography)
     
     print("\n============= Resultado ===============\n" +
-          f"Palabra Original: {input_word.capitalize()}\n" +
-          f"Palabra Cifrada: {word_result.capitalize()}")
+          f"Palabra Original: {input_word}\n" +
+          f"Palabra Cifrada: {word_result.upper()}")
 
 # ///////////////////////////////////////// Vigenere Encryption Menu /////////////////////////////////////////
 def vigenere_encrypted_menu(cryptography):
@@ -65,7 +60,9 @@ def vigenere_encrypted_menu(cryptography):
               "╠═══════════════════════╦════════════════════════╣\n" +
               "║ 1.- Universo (A-E)    ║ 2.- Universo (A-Z)     ║\n" +
               "║ 3.- Definir Universo  ║                        ║\n" +
-              "╚═══════════════════════╩════════════════════════╝")
+              "╠═══════════════════════╩════════════════════════╣\n" +
+              "║ 0.- Salir                                      ║\n" +
+              "╚════════════════════════════════════════════════╝")
         
         option = input("› Ingrese el número de la opción: ")
 

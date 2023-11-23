@@ -16,9 +16,8 @@ def validate_input_exception(word):
         return False
     return True
 
-# Si se ingresa una letra que no esta dentro del universo continua el proceso y no lo rechaza
 def validate_input_universe(word, universe):
-    if not all(c.isalpha() or c.isspace() and c in universe.upper() for c in word.upper()):
+    if not all(c in universe.upper() or c.isspace() for c in word.upper()):
         print("╔════════════════════════════════════════════════════════════════════════╗\n" + 
               "║ Error: La palabra debe contener solo letras del universo seleccionado. ║\n" +
               "║ Por favor, ingrese una palabra válida.                                 ║\n" +

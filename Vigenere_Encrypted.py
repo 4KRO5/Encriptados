@@ -45,7 +45,7 @@ def vigenere_encrypted_input(universe, cryptography):
 # ///////////////////////////////////////// Vigenere Encryption Menu /////////////////////////////////////////
 def vigenere_encrypted_menu(cryptography):
     universe_AE = "ABCDE"
-    universe_AZ = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    universe_AZ = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
     user_defined_universe = ""
 
     options = {

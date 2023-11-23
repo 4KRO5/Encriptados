@@ -16,6 +16,7 @@ def validate_input_exception(word):
         return False
     return True
 
+# Si se ingresa una letra que no esta dentro del universo continua el proceso y no lo rechaza
 def validate_input_universe(word, universe):
     if not all(c.isalpha() or c.isspace() and c in universe.upper() for c in word.upper()):
         print("╔════════════════════════════════════════════════════════════════════════╗\n" + 
@@ -25,6 +26,7 @@ def validate_input_universe(word, universe):
         return False
     return True
 
+# Si se ingresa un carácter no numérico el programa se detiene y no muestra el msj de error
 def validate_position(position):
     if not str(position).isdigit() or int(position) < 0:
         print("╔════════════════════════════════════════════════════════════════════════╗\n" + 

@@ -41,7 +41,7 @@ def vigenere_encrypted_input(universe, cryptography):
         if validate_input_universe(key, universe):
             break
 
-    word_result = vigenere_encrypted(input_word, key, universe, cryptography)
+    word_result = vigenere_encrypted(input_word, key, universe.upper(), cryptography)
     
     print("\n============= Resultado ===============\n" +
           f"Palabra Original: {input_word}\n" +

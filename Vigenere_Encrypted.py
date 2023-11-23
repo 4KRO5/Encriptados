@@ -1,4 +1,4 @@
-from Validations import validate_input_universe
+from Validations import validate_input, validate_input_universe
 
 # ///////////////////////////////////////// Vigenere Encrypted /////////////////////////////////////////
 def vigenere_encrypted(word, key, universe, cryptography):
@@ -23,17 +23,22 @@ def vigenere_encrypted(word, key, universe, cryptography):
 
 # ///////////////////////////////////////// Vigenere Encrypted Input /////////////////////////////////////////
 def vigenere_encrypted_input(universe, cryptography):
-    if universe == "":
-        universe = input("› Ingrese el alfabeto del universo: ")
+    while True:    
+        if not universe:
+            universe = input("› Ingrese el alfabeto del universo: ")
+        if validate_input(universe, True):
+            break
+        else:
+            universe = ""
 
     while True:
         input_word = input("› Ingrese la palabra a cifrar: ")
-        if validate_input_universe(input_word, universe):  # Asegúrate de tener 'universe' definido
+        if validate_input_universe(input_word, universe):
             break
 
     while True:
         key = input("› Ingrese la clave: ")
-        if validate_input_universe(key, universe):  # Asegúrate de tener 'universe' definido
+        if validate_input_universe(key, universe):
             break
 
     word_result = vigenere_encrypted(input_word, key, universe, cryptography)

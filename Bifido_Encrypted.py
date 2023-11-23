@@ -1,6 +1,6 @@
 from Validations import validate_input_exception
 
-# ///////////////////////////////////////// Cifrado Bífido /////////////////////////////////////////
+# ///////////////////////////////////////// Bifido Encrypted /////////////////////////////////////////
 def bifido_encrypted(word, cryptography):
     def indexing(encryption):
         return ''.join([polybius_table[row][column] for row, column in encryption])

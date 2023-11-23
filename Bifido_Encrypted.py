@@ -40,5 +40,5 @@ def bifido_encrypted_input(cryptography):
     word_result = bifido_encrypted(input_word, cryptography = cryptography)
 
     print("\n========================== Resultado =========================\n" +
-          f"Palabra {'Original' if cryptography else 'Cifrada'}: {input_word.capitalize()}\n" +
-          f"Palabra {'Cifrada' if cryptography else 'Descifrada'}: {word_result.capitalize()}")
+          f"Palabra {'Original' if cryptography else 'Cifrada'}: {input_word}\n" +
+          f"Palabra {'Cifrada' if cryptography else 'Descifrada'}: {word_result.upper()}")
